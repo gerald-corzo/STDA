@@ -51,6 +51,8 @@ def ExtendThresholds(ts,Pm):
     for i,v in enumerate(ts):
         M=ts.index.month[i]
         Tst[i]=Pm[M-1]
+        print(i)
+    print(len(Tst))    
     ts['Tst']=Tst  #Creating one column with the Tst
     return ts
 
