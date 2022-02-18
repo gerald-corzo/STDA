@@ -44,20 +44,38 @@ def ExtendThresholds(ts,Pm):
 
     Returns
     -------
-    _type_
-        _description_
+    Tst
+    Numpy Array with the time series data of the daily percentiles
+        
     """    
     Tst=np.zeros(len(ts))
     for i,v in enumerate(ts):
         M=ts.index.month[i]
         Tst[i]=Pm[M-1]
-        print(i)
-    print(len(Tst))    
-    ts['Tst']=Tst  #Creating one column with the Tst
-    return ts
+        #print(i)
+    #print(len(Tst))    
+    
+    return Tst
 
-def SmoothMonth(Tst,Span,Center=True):
+def SmoothMonth(Tst,Span):
+    """
+    SmoothMonth Moving Average smooth of a time series
+
+    Parameters
+    ----------
+    Tst : Numpy array (1d)
+        _description_
+    Span : Int
+        Number of time steps in the centered moving average
+
+    Returns
+    -------
+    Numpy time series
+        moving average of the time series used as input
+    """    
     #For pandas time series
-    Roll=Tst.rolling(window=Span,center=Center)
-    MA=Roll.mean()    
-    return MA
+    #Roll=Tst.rolling(window=Span,center=Center)
+    #MA=Roll.mean()    
+    MA=np.convolve(Tst, np.ones(Span), 'full') / Span
+
+    return MA[:-(Span)]
