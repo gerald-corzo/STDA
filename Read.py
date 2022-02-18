@@ -14,7 +14,47 @@ Df.head()
 #%%
 ts=Df['Calibrated']
 ts.plot()
-ts=ts.to_numpy()
+#ts=ts.to_numpy()
+
+
+
+#%%
+#group by
+Nts=ts.groupby(by=[ts.index.month])
+Nts.head()
+
+#Percentiles
+P=Nts.describe(percentiles=[0.05,0.1,0.15,0.2])
+#Threshold Array
+Ths=P['5%'].array
+Ths=Ths.to_numpy()
+
+#Tsd time series of thresholds Tst and moving average Tsm
+Tst=np.zeros(len(ts))
+Tsm=np.zeros(len(ts))
+
+Span=10
+
+
+
+
+#%%
+for i,v in enumerate(ts):
+    M=ts.index.month[i]
+    #Time series Threshold    
+    Tst[i]=Ths[M-1]
+    if i>Span:
+        Tsm[i]=np.sum(Tst[(i-Span+1):(i+1)])/Span
+    else:
+        Tsm[i]=Tst[i]
+    
+
+#%%
+plt.plot(Tst)
+plt.plot(Tsm,'-g')
+plt.xlim(Span,Span+150)
+plt.ylim(0,20)
+
 
 #%%
 #read data
