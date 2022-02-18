@@ -32,12 +32,9 @@ def ExtendThresholds(ts,Pm):
     copying it into the corresponding days of each month of each year. Is to not
     that the Pm stands for Percentile each months and this routing is made
     to analyse the concept of drought 
-
-    _extended_summary_
-
     Parameters
     ----------
-    ts : pandas dataframe
+    ts : Numpy
         time series of one variable
     Pm : numpy array
         array contaning float values that correspondong to each month
@@ -78,4 +75,38 @@ def SmoothMonth(Tst,Span):
     #MA=Roll.mean()    
     MA=np.convolve(Tst, np.ones(Span), 'full') / Span
 
-    return MA[:-(Span)]
+    return MA[:-(Span-1)]
+
+
+def EstimateDrought(ts,Tss,PoolValue=5,MinDrought=3):
+    
+    Dts=np.zeros(len(ts))
+    Dts[ts<Tss]=1
+    nd=0
+    Start=[]
+    End=[]
+    Dur=[]
+    for i,v in enumerate(Dts):
+        #Change to drought
+        if v == 1 and i!=0:
+            if Dts[i-1]==0:
+                Start.append(i)
+                nd=nd+1
+        #Change to no drought
+        if v == 0 and i!=0:
+            if Dts[i-1]==1:
+                End.append(i)
+                if End[-1]>Start[-1]: 
+                    if Dur[-1]<MinDrought:
+                        Dur.append(End[-1]-Start[-1])
+                    
+                else:
+                    print('Time series started with a Drought state')
+                    nd=nd+1
+
+
+
+    print(nd)
+    print(Start)
+    print(End)
+    return nd, Start,End
