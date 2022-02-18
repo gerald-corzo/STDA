@@ -16,4 +16,10 @@ Pm=MonthlyPercentiles(ts,Percentile=5)
 plt.plot(Pm)
 plt.title('Percentile of monthly values')
 
+# %% Obtraining the threshold time series
+Tts=ExtendThresholds(ts,Pm)
+#Tts.plot()
+Tts.head()
+
+
 # %%
