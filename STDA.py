@@ -79,7 +79,17 @@ def SmoothMonth(Tst,Span):
 
 
 def EstimateDrought(ts,Tss,PoolValue=5,MinDrought=3):
-    
+    """Estimate Drought
+
+    Args:
+        ts PandasTs: Time series of the varible to analize
+        Tss Numpy Array: Time series of the Smoothed thresholds that will be used to assess the anomaly 
+        PoolValue (int, optional): Minimum numbre of days before is called drought. Defaults to 5.
+        MinDrought (int, optional): Minimum number of days to be considered as drought. Defaults to 3.
+
+    Returns:
+        _type_: _description_
+    """    
     Dts=np.zeros(len(ts))
     Dts[ts<Tss]=1
     nd=0
@@ -89,9 +99,14 @@ def EstimateDrought(ts,Tss,PoolValue=5,MinDrought=3):
     for i,v in enumerate(Dts):
         #Change to drought
         if v == 1 and i!=0:
-            if Dts[i-1]==0:
-                Start.append(i)
-                nd=nd+1
+            #Check pooling
+            if End[-1]-i>PoolValue:
+                if Dts[i-1]==0:
+                    Start.append(i)
+                    nd=nd+1
+            else:
+                End.pop()
+                print(r'Pooled together in ts={i} date={ts.index[i]}')
         #Change to no drought
         if v == 0 and i!=0:
             if Dts[i-1]==1:
@@ -99,7 +114,6 @@ def EstimateDrought(ts,Tss,PoolValue=5,MinDrought=3):
                 if End[-1]>Start[-1]: 
                     if Dur[-1]<MinDrought:
                         Dur.append(End[-1]-Start[-1])
-                    
                 else:
                     print('Time series started with a Drought state')
                     nd=nd+1
