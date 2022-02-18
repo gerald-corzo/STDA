@@ -89,9 +89,14 @@ def EstimateDrought(ts,Tss,PoolValue=5,MinDrought=3):
     for i,v in enumerate(Dts):
         #Change to drought
         if v == 1 and i!=0:
-            if Dts[i-1]==0:
-                Start.append(i)
-                nd=nd+1
+            #Check pooling
+            if End[-1]-i>PoolValue:
+                if Dts[i-1]==0:
+                    Start.append(i)
+                    nd=nd+1
+            else:
+                End.pop()
+                print(r'Pooled together in ts={i} date={ts.index[i]}')
         #Change to no drought
         if v == 0 and i!=0:
             if Dts[i-1]==1:
@@ -99,7 +104,6 @@ def EstimateDrought(ts,Tss,PoolValue=5,MinDrought=3):
                 if End[-1]>Start[-1]: 
                     if Dur[-1]<MinDrought:
                         Dur.append(End[-1]-Start[-1])
-                    
                 else:
                     print('Time series started with a Drought state')
                     nd=nd+1
