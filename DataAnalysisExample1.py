@@ -25,36 +25,14 @@ Tss=SmoothMonth(Tts,10)
 
 
 # %%
-EstimateDrought(ts,Tss,PoolValue=5,MinDrought=3)
+ND,St,En=EstimateDrought(ts,Tss,PoolValue=5,MinDrought=3)
+
+
 
 #%%
 
-PoolValue=5
-Dts=np.zeros(len(ts))
-Dts[ts<Tss]=1
-nd=0
-Start=[]
-End=[]
-for i,v in enumerate(Dts):
-    #Change to drought
-    if v == 1 and i!=0:
-        if Dts[i-1]==0:
-            Start.append(i)
-            nd=nd+1
-    #Change to no drought
-    if v == 0 and i!=0:
-        if Dts[i-1]==1:
-            End.append(i)
-            if End[-1] >Start[-1]: 
-                Dur=End[-1]-Start[-1]
-                
-            else:
-                print('Time series started with a Drought state')
-                nd=nd+1
 
 
 
-print(nd)
-print(Start)
-print(End)
+
 # %%
