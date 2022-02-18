@@ -25,7 +25,9 @@ Tss=SmoothMonth(Tts,10)
 
 
 # %%
+EstimateDrought(ts,Tss,PoolValue=5,MinDrought=3)
 
+#%%
 
 PoolValue=5
 Dts=np.zeros(len(ts))
