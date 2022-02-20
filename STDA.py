@@ -79,6 +79,7 @@ def SmoothMonth(Tst,Span):
 
 
 def EstimateDrought(ts,Tss,PoolValue=5,MinDrought=3):
+
     """_summary_
 
     Args:
@@ -93,6 +94,7 @@ def EstimateDrought(ts,Tss,PoolValue=5,MinDrought=3):
     Dts=np.zeros(len(ts))
     Dts[ts<Tss]=1
     print(Dts)
+
     nd=0
     Start=[]
     End=[]
@@ -109,6 +111,7 @@ def EstimateDrought(ts,Tss,PoolValue=5,MinDrought=3):
                 else:
                     End.pop()
                     print(f'Pooled together in ts={i}')
+
             else:
                 if Dts[i-1]==0:
                     Start.append(i)
@@ -136,4 +139,5 @@ def EstimateDrought(ts,Tss,PoolValue=5,MinDrought=3):
     print(f'Number of droughts {nd}')
     print(f'Starting time step of droughts {Start}')
     print(f'Ending time step of droughts {End}')
+
     return nd, Start,End

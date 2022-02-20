@@ -152,3 +152,23 @@ def PlotRollingWindos(Df):
     # reverse the order
     ax.legend(handles[::-1], labels[::-1])
     plt.title('Moving window analysis')
+
+
+def SPIsimple(data,span):
+    #Removing zeros
+    I=np.where(data~=0)
+    Iz=np.where(tsz==0);
+    ts=data[I];
+
+    if len(Iz[0])==0:
+        pz=0
+    else:
+        pz=len(Iz)/len(data)
+
+    b=gamma.fit(ts)
+    tsg=(1-pz)*gamma.cdf(data,b[0],b[1])+pz
+    Z,mu,sigma = st.norm.fit(tsg)
+    return Z
+
+
+

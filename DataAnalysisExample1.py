@@ -33,3 +33,9 @@ ND,St,En=EstimateDrought(ts,Tss,PoolValue=5,MinDrought=3)
 
 
 
+<<<<<<< HEAD
+=======
+
+
+# %%
+>>>>>>> 477f0ecbfb325a5a4a2e398bf0b20e387a613339
