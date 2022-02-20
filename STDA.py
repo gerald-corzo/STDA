@@ -79,9 +79,20 @@ def SmoothMonth(Tst,Span):
 
 
 def EstimateDrought(ts,Tss,PoolValue=5,MinDrought=3):
-    
+    """_summary_
+
+    Args:
+        ts (numpy): Array with all SPI or Time seris
+        Tss (numpy): Time series of SPI or Thresholds
+        PoolValue (int, optional): _description_. Defaults to 5.
+        MinDrought (int, optional): _description_. Defaults to 3.
+
+    Returns:
+        _type_: _description_
+    """    
     Dts=np.zeros(len(ts))
     Dts[ts<Tss]=1
+    print(Dts)
     nd=0
     Start=[]
     End=[]
@@ -90,27 +101,39 @@ def EstimateDrought(ts,Tss,PoolValue=5,MinDrought=3):
         #Change to drought
         if v == 1 and i!=0:
             #Check pooling
-            if End[-1]-i>PoolValue:
+            if len(End)>1:
+                if End[-1]-End[-2]>PoolValue:
+                    if Dts[i-1]==0:
+                        Start.append(i)
+                        nd=nd+1
+                else:
+                    End.pop()
+                    print(f'Pooled together in ts={i}')
+            else:
                 if Dts[i-1]==0:
                     Start.append(i)
                     nd=nd+1
-            else:
-                End.pop()
-                print(r'Pooled together in ts={i} date={ts.index[i]}')
+                    print(f'Start in {i}')
+            
         #Change to no drought
         if v == 0 and i!=0:
-            if Dts[i-1]==1:
+            if Dts[i-1]==1 and Start:
                 End.append(i)
-                if End[-1]>Start[-1]: 
-                    if Dur[-1]<MinDrought:
-                        Dur.append(End[-1]-Start[-1])
+                D=End[-1]-Start[-1]
+                if D>0:
+                    if D<MinDrought:
+                        print(f'Short drought at {i}')
+                    else:
+                        Dur.append(D)
+                        #nd=nd+1
+                    
                 else:
                     print('Time series started with a Drought state')
-                    nd=nd+1
+                    #nd=nd+1
 
 
 
-    print(nd)
-    print(Start)
-    print(End)
+    print(f'Number of droughts {nd}')
+    print(f'Starting time step of droughts {Start}')
+    print(f'Ending time step of droughts {End}')
     return nd, Start,End
