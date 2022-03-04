@@ -36,6 +36,8 @@ Obtain a time series of this percentiles
 ## Making the drought analysis
 
 Using the time series read above and the threshold
+Tss is a numpy array of Threshold (time series)
+ts is the time series of the Drought indicator, can be SPI or can be a variable is the threshold is a moving average of a percentile (used to deinfe drought as an anomaly) 
 
     $ EstimateDrought(ts,Tss,PoolValue=5,MinDrought=3)
 > Definition of drought will be an anomaly on daily discharges and will be defined 
