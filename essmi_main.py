@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from STDA import *
+from essmi_indicator import *
 import xarray as xr
 
 
