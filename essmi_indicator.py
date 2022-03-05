@@ -53,5 +53,5 @@ def PlotESSMI(ts, essmi, date):
     ax2.set_ylabel('Soil moisture (${m^3}$/${m^3}$)',fontdict={'weight': 'normal', 'size': 12})
     plt.grid(color='grey', linestyle='--', linewidth=0.5)
     #plt.savefig(r'C:\ESSMI_single_pixel_11years.png',dpi=300)
-    plt.show()
+    plt.show() 
     
