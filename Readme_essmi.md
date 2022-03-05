@@ -11,7 +11,7 @@ Carrão, Hugo, et al. "An empirical standardized soil moisture index for agricul
   2.Estiimates drought index corresponding to the values per month and generates a time series of thresholds
 
 **Codes:**
-The related repository is attached in the STDA, including:
+The related repository is attached in the STDA path, including:
 essmi_indicator.py (functions: essmi calculation and visualizaiton),
 essmi_main.py(main program), and 
 era5_monthly_averaged_sm.nc(sample data for input)
