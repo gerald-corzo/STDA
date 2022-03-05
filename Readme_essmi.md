@@ -14,4 +14,4 @@ Carrão, Hugo, et al. "An empirical standardized soil moisture index for agricul
 The related repository is attached in the STDA path, including:
 essmi_indicator.py (functions: essmi calculation and visualizaiton),
 essmi_main.py(main program), and 
-era5_monthly_averaged_sm.nc(sample data for input)
+era5_monthly_averaged_sm.nc(sample data for input, ERA5 monthly soil moisture averaged from hourly data in Spain)
