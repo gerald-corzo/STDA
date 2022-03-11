@@ -2,8 +2,10 @@
 
 
 ## Desription
-This repository contains a simple library (files) called STDA (Spatial Temoral Drought Analysis)
-Aims at estimating
+This repository contains a library called STDA (Spatial Temoral Drought Analysis) that estimates various types of drought indicators and analysis time series of drought events. 
+
+## Features
+
 Meteorological drought from time series
 - Calaculates the SPI (inside file called indicators)
 - Calculates drough events assuming you define a SPI threshold (-1,-1.5...)
@@ -14,12 +16,20 @@ Hydrological drought
 - Estimates a threshold based on the monthly averages (and uses a moving average to soften the threshold monthly boundaries)
 - Estimate the number of event comparing the hydrological discharge with the threshold estimated from historical values
 
-Soil Moisture Index
--
-- 
+Soil Moisture Index *Empirical Standardized Soil Moisture, ESSMI)
+
+Evaluates drought degree and probability while only using soil moisture record. We roughly realized the codes through the framework proposed by the ESSMI authors since the essmi calculation seems not be publical released. (we do not strictly follow the original recommended method for optimizing bandwidth selection of KDE)
+
+Reference: Carrão, Hugo, et al. "An empirical standardized soil moisture index for agricultural drought assessment from remotely sensed data." International journal of applied earth observation and geoinformation 48 (2016): 74-84.
+
+Features: 
+1.Estimates (agricultural) drought index from monthly timse series 
+2.Estiimates drought index corresponding to the values per month and generates a time series of thresholds
+
+Codes: The related repository is attached in the STDA path, including: essmi_indicator.py (functions: essmi calculation and visualizaiton), essmi_main.py(main program), and era5_monthly_averaged_sm.nc(sample data for input, ERA5 monthly soil moisture averaged from hourly data in Spain)- 
 
 
-## Features
+
 * Estimates hydrological drought from timse series 
 * Makes monthly analysis of daily data 
 * Estiimates percentiles per month and generates a time series of thresholds
