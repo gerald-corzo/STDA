@@ -2,7 +2,21 @@
 
 
 ## Desription
-This repository contains a simple library (file) called STDA (Spatial Temoral Drought Analysis)
+This repository contains a simple library (files) called STDA (Spatial Temoral Drought Analysis)
+Aims at estimating
+Meteorological drought from time series
+- Calaculates the SPI (inside file called indicators)
+- Calculates drough events assuming you define a SPI threshold (-1,-1.5...)
+- Provides tools to tak into account the concept of pooling(consecutive drought event) and remove short droughts
+
+Hydrological drought
+- Time series in format of Data frame with datetime column can be used to estimate monthly aggregates. 
+- Estimates a threshold based on the monthly averages (and uses a moving average to soften the threshold monthly boundaries)
+- Estimate the number of event comparing the hydrological discharge with the threshold estimated from historical values
+
+Soil Moisture Index
+-
+- 
 
 
 ## Features
